@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Arcade Atlas</title>
+	<style>
+		:root {
+			--bg: #f3ecdf;
+			--panel: rgba(255, 250, 243, 0.84);
+			--ink: #1d232b;
+			--muted: #66707a;
+			--accent: #184e77;
+			--accent-2: #d97706;
+			--accent-3: #0f766e;
+			--line: rgba(29, 35, 43, 0.12);
+			--shadow: 0 22px 60px rgba(29, 35, 43, 0.14);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			color: var(--ink);
+			font-family: Georgia, "Times New Roman", serif;
+			background:
+				radial-gradient(circle at top left, rgba(24, 78, 119, 0.16), transparent 28%),
+				radial-gradient(circle at bottom right, rgba(217, 119, 6, 0.13), transparent 30%),
+				linear-gradient(180deg, #fbf7ef 0%, #f3ecdf 100%);
+		}
+
+		.page {
+			width: min(1180px, calc(100% - 28px));
+			margin: 0 auto;
+			padding: 26px 0 38px;
+		}
+
+		.hero,
+		.panel {
+			border: 1px solid var(--line);
+			border-radius: 26px;
+			background: var(--panel);
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(10px);
+		}
+
+		.hero {
+			display: grid;
+			grid-template-columns: 1.2fr 0.8fr;
+			gap: 24px;
+			padding: 32px;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.hero::after {
+			content: "";
+			position: absolute;
+			inset: auto -90px -90px auto;
+			width: 240px;
+			height: 240px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, rgba(24, 78, 119, 0.18), rgba(217, 119, 6, 0.12));
+			pointer-events: none;
+		}
+
+		.eyebrow {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 12px;
+			border-radius: 999px;
+			background: rgba(24, 78, 119, 0.1);
+			color: var(--accent);
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			font-size: 0.82rem;
+			font-weight: 700;
+		}
+
+		h1, h2, h3, p {
+			margin-top: 0;
+		}
+
+		h1 {
+			font-size: clamp(2.5rem, 4vw, 4.35rem);
+			line-height: 0.95;
+			margin: 18px 0 14px;
+			max-width: 10ch;
+		}
+
+		.lead {
+			max-width: 65ch;
+			color: var(--muted);
+			line-height: 1.75;
+			font-size: 1.04rem;
+		}
+
+		.facts {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 14px;
+			margin-top: 24px;
+		}
+
+		.fact {
+			padding: 16px;
+			border-radius: 18px;
+			background: rgba(255, 255, 255, 0.72);
+			border: 1px solid var(--line);
+		}
+
+		.fact strong {
+			display: block;
+			margin-bottom: 6px;
+			font-size: 1.12rem;
+		}
+
+		.portrait {
+			display: grid;
+			place-items: center;
+			padding: 28px;
+			text-align: center;
+		}
+
+		.badge {
+			width: 178px;
+			height: 178px;
+			border-radius: 50%;
+			display: grid;
+			place-items: center;
+			font-size: 4rem;
+			font-weight: 700;
+			color: white;
+			background: linear-gradient(135deg, var(--accent), #3a7ca5);
+			box-shadow: inset 0 0 0 10px rgba(255, 255, 255, 0.12);
+			margin-bottom: 18px;
+		}
+
+		.portrait p {
+			max-width: 24ch;
+			color: var(--muted);
+			line-height: 1.65;
+		}
+
+		main {
+			display: grid;
+			gap: 22px;
+			margin-top: 22px;
+		}
+
+		.card {
+			padding: 24px;
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 22px;
+		}
+
+		.section-title {
+			font-size: 1.55rem;
+			margin-bottom: 10px;
+		}
+
+		.muted {
+			color: var(--muted);
+			line-height: 1.72;
+		}
+
+		.list {
+			list-style: none;
+			padding: 0;
+			margin: 16px 0 0;
+			display: grid;
+			gap: 12px;
+		}
+
+		.list li,
+		.timeline-item,
+		.question {
+			background: rgba(255, 255, 255, 0.7);
+			border: 1px solid var(--line);
+		}
+
+		.list li {
+			border-radius: 16px;
+			padding: 14px 16px;
+		}
+
+		.timeline {
+			display: grid;
+			gap: 14px;
+		}
+
+		.timeline-item {
+			border-radius: 0 16px 16px 0;
+			border-left: 4px solid var(--accent-2);
+			padding: 16px;
+		}
+
+		.controls {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin: 16px 0 6px;
+		}
+
+		button {
+			border: 0;
+			border-radius: 999px;
+			padding: 12px 16px;
+			font: inherit;
+			cursor: pointer;
+			transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease;
+		}
+
+		button:hover {
+			transform: translateY(-1px);
+		}
+
+		.primary {
+			background: var(--accent);
+			color: white;
+			box-shadow: 0 12px 22px rgba(24, 78, 119, 0.16);
+		}
+
+		.secondary {
+			background: rgba(255, 255, 255, 0.72);
+			border: 1px solid var(--line);
+			color: var(--ink);
+		}
+
+		.soft {
+			background: rgba(217, 119, 6, 0.1);
+			color: #7c4a00;
+			border: 1px solid rgba(217, 119, 6, 0.12);
+		}
+
+		.arcade-shell {
+			display: grid;
+			gap: 18px;
+		}
+
+		.toolbar {
+			display: flex;
+			justify-content: space-between;
+			gap: 12px;
+			flex-wrap: wrap;
+			align-items: center;
+		}
+
+		.toolbar h2 {
+			margin-bottom: 4px;
+		}
+
+		.switcher {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+
+		.chip {
+			padding: 10px 14px;
+			border-radius: 999px;
+			background: white;
+			border: 1px solid var(--line);
+		}
+
+		.chip.active {
+			background: var(--accent);
+			color: white;
+			border-color: transparent;
+		}
+
+		.game-stage {
+			display: grid;
+			gap: 18px;
+		}
+
+		.game {
+			display: none;
+			padding: 18px;
+			border-radius: 22px;
+			border: 1px solid rgba(24, 78, 119, 0.14);
+			background: rgba(255, 255, 255, 0.72);
+		}
+
+		.game.active {
+			display: grid;
+			gap: 14px;
+		}
+
+		.hud {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+
+		.hud span {
+			padding: 8px 12px;
+			border-radius: 999px;
+			background: rgba(24, 78, 119, 0.08);
+			border: 1px solid rgba(24, 78, 119, 0.12);
+		}
+
+		.status {
+			color: var(--muted);
+			min-height: 28px;
+		}
+
+		.tap-board {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 10px;
+		}
+
+		.tap-tile {
+			aspect-ratio: 1;
+			border-radius: 18px;
+			border: 1px solid rgba(24, 78, 119, 0.14);
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(24, 78, 119, 0.04));
+			color: var(--ink);
+			font-size: 1rem;
+			font-weight: 700;
+			display: grid;
+			place-items: center;
+		}
+
+		.tap-tile.active {
+			background: linear-gradient(180deg, #ffd166, #f59e0b);
+			box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18), 0 10px 24px rgba(245, 158, 11, 0.24);
+		}
+
+		.color-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 12px;
+		}
+
+		.color-choice {
+			min-height: 96px;
+			border-radius: 18px;
+			border: 0;
+			color: white;
+			font-size: 1rem;
+			font-weight: 700;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+		}
+
+		.memory-board {
+			display: grid;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 10px;
+		}
+
+		.memory-card {
+			aspect-ratio: 1;
+			border-radius: 16px;
+			border: 1px solid rgba(24, 78, 119, 0.14);
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(24, 78, 119, 0.05));
+			font-weight: 700;
+			color: var(--ink);
+			display: grid;
+			place-items: center;
+		}
+
+		.memory-card.found {
+			background: linear-gradient(180deg, #c7f9cc, #83c5be);
+		}
+
+		.game-panel:fullscreen,
+		.game-panel:-webkit-full-screen {
+			width: 100vw;
+			height: 100vh;
+			overflow: auto;
+			padding: 22px;
+			background:
+				radial-gradient(circle at top left, rgba(24, 78, 119, 0.18), transparent 30%),
+				radial-gradient(circle at bottom right, rgba(217, 119, 6, 0.16), transparent 30%),
+				var(--bg);
+		}
+
+		.footer {
+			margin-top: 18px;
+			text-align: center;
+			color: var(--muted);
+			font-size: 0.95rem;
+		}
+
+		@media (max-width: 920px) {
+			.hero,
+			.grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 640px) {
+			.page {
+				width: min(100% - 18px, 1180px);
+				padding-top: 18px;
+			}
+
+			.hero,
+			.card {
+				padding: 20px;
+			}
+
+			.facts,
+			.color-grid,
+			.memory-board {
+				grid-template-columns: 1fr 1fr;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="page">
+		<section class="hero">
+			<div>
+				<span class="eyebrow">Arcade Atlas</span>
+				<h1>Three small games, one polished arcade.</h1>
+				<p class="lead">
+					A compact website with a warm editorial style, multiple game modes, and a fullscreen view for the active game.
+					Switch between quick challenges, play in-place, or expand the arcade to fill the screen.
+				</p>
+
+				<div class="facts">
+					<div class="fact">
+						<strong>Quick rounds</strong>
+						Games are short, replayable, and easy to reset.
+					</div>
+					<div class="fact">
+						<strong>Fullscreen mode</strong>
+						Open any active game in fullscreen for a cleaner play area.
+					</div>
+					<div class="fact">
+						<strong>Same style</strong>
+						Warm colors, soft panels, and a calm arcade feel.
+					</div>
+				</div>
+			</div>
+
+			<aside class="panel portrait">
+				<div class="badge">A</div>
+				<h2 class="section-title">Arcade host</h2>
+				<p>
+					Designed to feel intentional rather than loud, with enough motion and color to make the games feel alive.
+				</p>
+			</aside>
+		</section>
+
+		<main>
+			<section class="card panel">
+				<h2 class="section-title">What is inside</h2>
+				<div class="grid">
+					<div>
+						<p class="muted">
+							The arcade includes three mini-games: Neon Tap, Color Match, and Memory Grid. Use the switcher to move between them and the fullscreen button to expand the active one.
+						</p>
+						<ul class="list">
+							<li>Neon Tap rewards quick reactions.</li>
+							<li>Color Match tests fast recognition.</li>
+							<li>Memory Grid gives you a simple matching challenge.</li>
+						</ul>
+					</div>
+
+					<div>
+						<div class="timeline">
+							<div class="timeline-item">
+								<strong>Open</strong>
+								Reveal the arcade and choose a game.
+							</div>
+							<div class="timeline-item">
+								<strong>Play</strong>
+								Use the controls under each game to score points.
+							</div>
+							<div class="timeline-item">
+								<strong>Expand</strong>
+								Switch to fullscreen for the active game whenever you want.
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="card panel arcade-shell" id="arcadePanel">
+				<div class="toolbar">
+					<div>
+						<h2 class="section-title" id="activeTitle">Neon Tap</h2>
+						<p class="muted" id="activeDescription">Tap the glowing tile before it moves.</p>
+					</div>
+					<button class="secondary" id="fullscreenBtn" type="button">Fullscreen Game</button>
+				</div>
+
+				<div class="switcher" role="tablist" aria-label="Arcade games">
+					<button class="chip active" type="button" data-game="neon">Neon Tap</button>
+					<button class="chip" type="button" data-game="color">Color Match</button>
+					<button class="chip" type="button" data-game="memory">Memory Grid</button>
+				</div>
+
+				<div class="game-stage">
+					<section class="game active" data-panel="neon">
+						<div class="hud">
+							<span id="neonScore">Score: 0</span>
+							<span id="neonTime">Time: 20</span>
+							<span id="neonState">Ready to play</span>
+						</div>
+
+						<div class="tap-board" id="tapBoard">
+							<button class="tap-tile" type="button" data-tile="0">1</button>
+							<button class="tap-tile" type="button" data-tile="1">2</button>
+							<button class="tap-tile" type="button" data-tile="2">3</button>
+							<button class="tap-tile" type="button" data-tile="3">4</button>
+							<button class="tap-tile" type="button" data-tile="4">5</button>
+							<button class="tap-tile" type="button" data-tile="5">6</button>
+							<button class="tap-tile" type="button" data-tile="6">7</button>
+							<button class="tap-tile" type="button" data-tile="7">8</button>
+							<button class="tap-tile" type="button" data-tile="8">9</button>
+						</div>
+
+						<div class="controls">
+							<button class="primary" id="startNeon" type="button">Start Round</button>
+							<button class="secondary" id="resetNeon" type="button">Reset</button>
+						</div>
+
+						<div class="status" id="neonStatus">Tap Start Round to begin.</div>
+					</section>
+
+					<section class="game" data-panel="color">
+						<p class="muted">Choose the swatch that matches the color name. One correct pick gives you one point.</p>
+						<div class="hud">
+							<span id="colorScore">Score: 0</span>
+							<span id="colorTime">Time: 18</span>
+							<span id="colorState">Ready to play</span>
+						</div>
+
+						<div class="panel" style="padding:16px; border-radius:18px; background:rgba(31,35,40,0.03); border:1px solid var(--line);">
+							<h3 id="colorPrompt">Match the color: Warm Sand</h3>
+							<div class="color-grid" id="colorGrid"></div>
+						</div>
+
+						<div class="controls">
+							<button class="primary" id="startColor" type="button">Start Round</button>
+							<button class="secondary" id="resetColor" type="button">Reset</button>
+						</div>
+
+						<div class="status" id="colorStatus">Tap Start Round to begin.</div>
+					</section>
+
+					<section class="game" data-panel="memory">
+						<p class="muted">Find the matching pairs. A simple 4x4 memory board keeps the rules easy and the pace quick.</p>
+						<div class="hud">
+							<span id="memoryScore">Matches: 0</span>
+							<span id="memoryMoves">Moves: 0</span>
+							<span id="memoryState">Ready to play</span>
+						</div>
+
+						<div class="memory-board" id="memoryBoard"></div>
+
+						<div class="controls">
+							<button class="primary" id="startMemory" type="button">Shuffle Board</button>
+							<button class="secondary" id="resetMemory" type="button">Reset</button>
+						</div>
+
+						<div class="status" id="memoryStatus">Tap Shuffle Board to start a fresh round.</div>
+					</section>
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer">
+			Built for quick play, clean styling, and a fullscreen option that keeps the active game front and center.
+		</footer>
+	</div>
+
+	<script>
+		const arcadePanel = document.getElementById('arcadePanel');
+		const fullScreenButton = document.getElementById('fullscreenBtn');
+		const gameTabs = Array.from(document.querySelectorAll('[data-game]'));
+		const gamePanels = Array.from(document.querySelectorAll('[data-panel]'));
+		const activeTitle = document.getElementById('activeTitle');
+		const activeDescription = document.getElementById('activeDescription');
+
+		const neonScore = document.getElementById('neonScore');
+		const neonTime = document.getElementById('neonTime');
+		const neonState = document.getElementById('neonState');
+		const neonStatus = document.getElementById('neonStatus');
+		const tapBoard = document.getElementById('tapBoard');
+		const tapTiles = Array.from(document.querySelectorAll('.tap-tile'));
+		const startNeon = document.getElementById('startNeon');
+		const resetNeon = document.getElementById('resetNeon');
+
+		const colorScore = document.getElementById('colorScore');
+		const colorTime = document.getElementById('colorTime');
+		const colorState = document.getElementById('colorState');
+		const colorStatus = document.getElementById('colorStatus');
+		const colorPrompt = document.getElementById('colorPrompt');
+		const colorGrid = document.getElementById('colorGrid');
+		const startColor = document.getElementById('startColor');
+		const resetColor = document.getElementById('resetColor');
+
+		const memoryScore = document.getElementById('memoryScore');
+		const memoryMoves = document.getElementById('memoryMoves');
+		const memoryState = document.getElementById('memoryState');
+		const memoryStatus = document.getElementById('memoryStatus');
+		const memoryBoard = document.getElementById('memoryBoard');
+		const startMemory = document.getElementById('startMemory');
+		const resetMemory = document.getElementById('resetMemory');
+
+		const colorChoices = [
+			{ name: 'Warm Sand', value: '#d9b38c' },
+			{ name: 'Deep Sea', value: '#184e77' },
+			{ name: 'Apricot Glow', value: '#f4a261' },
+			{ name: 'Forest Moss', value: '#6c8c55' },
+			{ name: 'Ink Night', value: '#2f3e46' },
+			{ name: 'Gold Hour', value: '#d97706' }
+		];
+
+		const memorySymbols = ['✦', '✿', '☼', '◆', '◈', '▲', '●', '⬟'];
+
+		let activeGame = 'neon';
+
+		let neonScoreValue = 0;
+		let neonTimeValue = 20;
+		let neonRunning = false;
+		let neonMoveTimer = null;
+		let neonCountdown = null;
+		let activeTile = null;
+
+		let colorScoreValue = 0;
+		let colorTimeValue = 18;
+		let colorRunning = false;
+		let colorCountdown = null;
+		let targetColor = null;
+
+		let memoryMovesValue = 0;
+		let memoryMatches = 0;
+		let memoryFlipped = [];
+		let memoryLock = false;
+		let memoryDeck = [];
+
+		function shuffle(array) {
+			return array.slice().sort(() => Math.random() - 0.5);
+		}
+
+		function updateActiveGame(gameName) {
+			activeGame = gameName;
+			gameTabs.forEach(tab => tab.classList.toggle('active', tab.dataset.game === gameName));
+			gamePanels.forEach(panel => panel.classList.toggle('active', panel.dataset.panel === gameName));
+
+			if (gameName === 'neon') {
+				activeTitle.textContent = 'Neon Tap';
+				activeDescription.textContent = 'Tap the glowing tile before it moves.';
+			} else if (gameName === 'color') {
+				activeTitle.textContent = 'Color Match';
+				activeDescription.textContent = 'Pick the swatch that matches the color name.';
+			} else {
+				activeTitle.textContent = 'Memory Grid';
+				activeDescription.textContent = 'Flip two cards and find the matching pairs.';
+			}
+		}
+
+		function setRandomTile() {
+			tapTiles.forEach(tile => tile.classList.remove('active'));
+			activeTile = tapTiles[Math.floor(Math.random() * tapTiles.length)];
+			activeTile.classList.add('active');
+		}
+
+		function resetNeonState() {
+			neonScoreValue = 0;
+			neonTimeValue = 20;
+			neonRunning = false;
+			clearInterval(neonMoveTimer);
+			clearInterval(neonCountdown);
+			neonMoveTimer = null;
+			neonCountdown = null;
+			activeTile = null;
+			tapTiles.forEach(tile => tile.classList.remove('active'));
+			tapBoard.style.pointerEvents = 'none';
+			neonScore.textContent = 'Score: 0';
+			neonTime.textContent = 'Time: 20';
+			neonState.textContent = 'Ready to play';
+			neonStatus.textContent = 'Tap Start Round to begin.';
+			startNeon.textContent = 'Start Round';
+		}
+
+		function startNeonGame() {
+			resetNeonState();
+			neonRunning = true;
+			tapBoard.style.pointerEvents = 'auto';
+			neonState.textContent = 'Go!';
+			neonStatus.textContent = 'Tap the glowing tile.';
+			startNeon.textContent = 'Restart Round';
+			setRandomTile();
+
+			neonMoveTimer = setInterval(() => {
+				if (neonRunning) {
+					setRandomTile();
+				}
+			}, 700);
+
+			neonCountdown = setInterval(() => {
+				if (!neonRunning) {
+					return;
+				}
+
+				neonTimeValue -= 1;
+				neonTime.textContent = `Time: ${neonTimeValue}`;
+
+				if (neonTimeValue <= 0) {
+					neonRunning = false;
+					clearInterval(neonMoveTimer);
+					clearInterval(neonCountdown);
+					tapBoard.style.pointerEvents = 'none';
+					tapTiles.forEach(tile => tile.classList.remove('active'));
+					neonState.textContent = `Time's up. Final score: ${neonScoreValue}.`;
+					neonStatus.textContent = `Time's up. Final score: ${neonScoreValue}.`;
+					startNeon.textContent = 'Play Again';
+				}
+			}, 1000);
+		}
+
+		function populateColorGrid(target) {
+			const shuffled = shuffle(colorChoices);
+			colorGrid.innerHTML = '';
+
+			shuffled.forEach(choice => {
+				const button = document.createElement('button');
+				button.type = 'button';
+				button.className = 'color-choice';
+				button.textContent = choice.name;
+				button.style.background = choice.value;
+
+				button.addEventListener('click', () => {
+					if (!colorRunning) {
+						return;
+					}
+
+					if (choice.name === target.name) {
+						colorScoreValue += 1;
+						colorScore.textContent = `Score: ${colorScoreValue}`;
+						colorState.textContent = 'Correct.';
+						colorStatus.textContent = 'Nice eye. Next round.';
+						launchColorRound();
+					} else {
+						colorState.textContent = 'Try again.';
+						colorStatus.textContent = 'That was not the match.';
+					}
+				});
+
+				colorGrid.appendChild(button);
+			});
+		}
+
+		function launchColorRound() {
+			targetColor = colorChoices[Math.floor(Math.random() * colorChoices.length)];
+			colorPrompt.textContent = `Match the color: ${targetColor.name}`;
+			populateColorGrid(targetColor);
+		}
+
+		function resetColorState() {
+			colorScoreValue = 0;
+			colorTimeValue = 18;
+			colorRunning = false;
+			clearInterval(colorCountdown);
+			colorCountdown = null;
+			colorScore.textContent = 'Score: 0';
+			colorTime.textContent = 'Time: 18';
+			colorState.textContent = 'Ready to play';
+			colorStatus.textContent = 'Tap Start Round to begin.';
+			colorPrompt.textContent = 'Match the color: Warm Sand';
+			colorGrid.innerHTML = '';
+			startColor.textContent = 'Start Round';
+		}
+
+		function startColorGame() {
+			resetColorState();
+			colorRunning = true;
+			colorState.textContent = 'Go!';
+			colorStatus.textContent = 'Choose the matching swatch.';
+			startColor.textContent = 'Restart Round';
+			launchColorRound();
+
+			colorCountdown = setInterval(() => {
+				if (!colorRunning) {
+					return;
+				}
+
+				colorTimeValue -= 1;
+				colorTime.textContent = `Time: ${colorTimeValue}`;
+
+				if (colorTimeValue <= 0) {
+					colorRunning = false;
+					clearInterval(colorCountdown);
+					colorState.textContent = `Time's up. Final score: ${colorScoreValue}.`;
+					colorStatus.textContent = `Time's up. Final score: ${colorScoreValue}.`;
+					startColor.textContent = 'Play Again';
+				}
+			}, 1000);
+		}
+
+		function buildMemoryBoard() {
+			const pairs = shuffle([...memorySymbols, ...memorySymbols]);
+			memoryDeck = pairs.map((symbol, index) => ({ id: index, symbol, revealed: false, found: false }));
+			memoryBoard.innerHTML = '';
+
+			memoryDeck.forEach(card => {
+				const button = document.createElement('button');
+				button.type = 'button';
+				button.className = 'memory-card';
+				button.textContent = '?';
+				button.dataset.cardId = String(card.id);
+
+				button.addEventListener('click', () => {
+					if (memoryLock || card.found || card.revealed) {
+						return;
+					}
+
+					card.revealed = true;
+					button.textContent = card.symbol;
+					memoryFlipped.push({ card, button });
+
+					if (memoryFlipped.length === 2) {
+						memoryMovesValue += 1;
+						memoryMoves.textContent = `Moves: ${memoryMovesValue}`;
+						memoryLock = true;
+
+						const [first, second] = memoryFlipped;
+						if (first.card.symbol === second.card.symbol) {
+							first.card.found = true;
+							second.card.found = true;
+							first.button.classList.add('found');
+							second.button.classList.add('found');
+							memoryMatches += 1;
+							memoryScore.textContent = `Matches: ${memoryMatches}`;
+							memoryState.textContent = 'Matched pair.';
+							memoryStatus.textContent = 'Good memory. Keep going.';
+							memoryFlipped = [];
+							memoryLock = false;
+
+							if (memoryMatches === memorySymbols.length) {
+								memoryState.textContent = `Complete in ${memoryMovesValue} moves.`;
+								memoryStatus.textContent = 'All pairs found.';
+								startMemory.textContent = 'Shuffle Board';
+							}
+						} else {
+							memoryState.textContent = 'Not a match.';
+							memoryStatus.textContent = 'Try another pair.';
+							setTimeout(() => {
+								first.card.revealed = false;
+								second.card.revealed = false;
+								first.button.textContent = '?';
+								second.button.textContent = '?';
+								memoryFlipped = [];
+								memoryLock = false;
+							}, 700);
+						}
+					}
+				});
+
+				memoryBoard.appendChild(button);
+			});
+		}
+
+		function resetMemoryState() {
+			memoryMovesValue = 0;
+			memoryMatches = 0;
+			memoryFlipped = [];
+			memoryLock = false;
+			memoryMoves.textContent = 'Moves: 0';
+			memoryScore.textContent = 'Matches: 0';
+			memoryState.textContent = 'Ready to play';
+			memoryStatus.textContent = 'Tap Shuffle Board to start a fresh round.';
+			startMemory.textContent = 'Shuffle Board';
+			buildMemoryBoard();
+		}
+
+		function startMemoryGame() {
+			resetMemoryState();
+			memoryState.textContent = 'Board shuffled.';
+			memoryStatus.textContent = 'Start flipping cards.';
+			startMemory.textContent = 'Shuffle Again';
+		}
+
+		gameTabs.forEach(tab => {
+			tab.addEventListener('click', () => {
+				const nextGame = tab.dataset.game;
+				updateActiveGame(nextGame);
+
+				if (nextGame === 'neon') {
+					tapBoard.style.pointerEvents = 'none';
+				}
+			});
+		});
+
+		tapTiles.forEach(tile => {
+			tile.addEventListener('click', () => {
+				if (!neonRunning || tile !== activeTile) {
+					return;
+				}
+
+				neonScoreValue += 1;
+				neonScore.textContent = `Score: ${neonScoreValue}`;
+				neonStatus.textContent = 'Nice hit. Keep going.';
+				setRandomTile();
+			});
+		});
+
+		startNeon.addEventListener('click', startNeonGame);
+		resetNeon.addEventListener('click', resetNeonState);
+
+		startColor.addEventListener('click', startColorGame);
+		resetColor.addEventListener('click', resetColorState);
+
+		startMemory.addEventListener('click', startMemoryGame);
+		resetMemory.addEventListener('click', resetMemoryState);
+
+		fullScreenButton.addEventListener('click', async () => {
+			if (document.fullscreenElement) {
+				await document.exitFullscreen();
+				return;
+			}
+
+			if (arcadePanel.requestFullscreen) {
+				await arcadePanel.requestFullscreen();
+			} else if (arcadePanel.webkitRequestFullscreen) {
+				arcadePanel.webkitRequestFullscreen();
+			}
+		});
+
+		updateActiveGame('neon');
+		resetNeonState();
+		resetColorState();
+		resetMemoryState();
+	</script>
+</body>
+</html>
