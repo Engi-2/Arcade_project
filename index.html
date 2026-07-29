@@ -248,6 +248,12 @@
 		.arcade-shell {
 			display: grid;
 			gap: 18px;
+			max-width: 900px;
+			margin: 0 auto;
+		}
+
+		.arcade-shell.super-loaded {
+			max-width: 1120px;
 		}
 
 		.toolbar {
@@ -266,6 +272,83 @@
 			display: flex;
 			flex-wrap: wrap;
 			gap: 10px;
+		}
+
+		.arcade-tools {
+			display: grid;
+			grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+			gap: 14px;
+			align-items: start;
+		}
+
+		.searchbox,
+		.selectbox {
+			width: 100%;
+			padding: 11px 14px;
+			border-radius: 14px;
+			border: 1px solid var(--line);
+			background: rgba(255, 255, 255, 0.76);
+			font: inherit;
+			color: var(--ink);
+		}
+
+		.layout-faces {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 10px;
+		}
+
+		.face {
+			padding: 12px 14px;
+			border-radius: 16px;
+			border: 1px solid var(--line);
+			background: rgba(255, 255, 255, 0.72);
+			text-align: left;
+		}
+
+		.face small {
+			display: block;
+			margin-top: 4px;
+			color: var(--muted);
+		}
+
+		.face.active {
+			background: var(--accent);
+			color: white;
+			border-color: transparent;
+		}
+
+		.arcade-shell.compact .game {
+			padding: 14px;
+		}
+
+		.arcade-shell.compact .tap-board {
+			gap: 8px;
+		}
+
+		.arcade-shell.compact .tap-tile {
+			font-size: 0.92rem;
+		}
+
+		.arcade-shell.compact .memory-board {
+			gap: 8px;
+		}
+
+		.arcade-shell.focus .grid {
+			grid-template-columns: 1fr;
+		}
+
+		.arcade-shell.focus .game {
+			max-width: 720px;
+			margin: 0 auto;
+		}
+
+		.arcade-shell.split .game-stage {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.arcade-shell.split .game-stage .game:last-child {
+			grid-column: 1 / -1;
 		}
 
 		.chip {
@@ -321,6 +404,115 @@
 			display: grid;
 			grid-template-columns: repeat(3, minmax(0, 1fr));
 			gap: 10px;
+		}
+
+		.pong-wrap,
+		.breaker-wrap {
+			display: grid;
+			gap: 12px;
+		}
+
+		.pong-canvas,
+		.breaker-canvas {
+			width: 100%;
+			max-width: 640px;
+			margin: 0 auto;
+			aspect-ratio: 16 / 10;
+			border-radius: 18px;
+			border: 1px solid rgba(24, 78, 119, 0.14);
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(24, 78, 119, 0.04));
+			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+		}
+
+		.breaker-bricks {
+			display: grid;
+			grid-template-columns: repeat(6, minmax(0, 1fr));
+			gap: 8px;
+			max-width: 640px;
+			margin: 0 auto;
+		}
+
+		.brick {
+			aspect-ratio: 1.35 / 1;
+			border-radius: 12px;
+			background: linear-gradient(180deg, rgba(24, 78, 119, 0.12), rgba(217, 119, 6, 0.14));
+			border: 1px solid rgba(24, 78, 119, 0.12);
+		}
+
+		.brick.hit {
+			background: linear-gradient(180deg, #c7f9cc, #83c5be);
+		}
+
+		.pong-controls {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.bonus-panel {
+			display: grid;
+			gap: 14px;
+		}
+
+		.bonus-board {
+			display: grid;
+			gap: 10px;
+		}
+
+		.bonus-grid {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 10px;
+		}
+
+		.bonus-tile,
+		.bonus-choice,
+		.bonus-seq {
+			border: 1px solid rgba(24, 78, 119, 0.14);
+			border-radius: 16px;
+			min-height: 72px;
+			font: inherit;
+			font-weight: 700;
+		}
+
+		.bonus-tile {
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(24, 78, 119, 0.04));
+			color: var(--ink);
+		}
+
+		.bonus-tile.active {
+			background: linear-gradient(180deg, #ffd166, #f59e0b);
+			color: white;
+			box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18), 0 10px 24px rgba(245, 158, 11, 0.24);
+		}
+
+		.bonus-choice {
+			color: white;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+		}
+
+		.bonus-seq {
+			background: rgba(255, 255, 255, 0.76);
+			color: var(--ink);
+		}
+
+		.bonus-prompt {
+			padding: 14px 16px;
+			border-radius: 18px;
+			background: rgba(31, 35, 40, 0.03);
+			border: 1px solid var(--line);
+		}
+
+		.bonus-sequence-row {
+			display: grid;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 10px;
+		}
+
+		.bonus-sequence-row .bonus-seq.active {
+			background: var(--accent);
+			color: white;
 		}
 
 		.tap-tile {
@@ -402,6 +594,17 @@
 			.grid {
 				grid-template-columns: 1fr;
 			}
+
+			.arcade-tools,
+			.layout-faces,
+			.arcade-shell.split .game-stage {
+				grid-template-columns: 1fr;
+			}
+
+			.bonus-grid,
+			.bonus-sequence-row {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
 		}
 
 		@media (max-width: 640px) {
@@ -428,9 +631,9 @@
 		<section class="hero">
 			<div>
 				<span class="eyebrow">Arcade Atlas</span>
-				<h1>Three small games, one polished arcade.</h1>
+				<h1>Eighteen small games, one polished arcade.</h1>
 				<p class="lead">
-					A compact website with a warm editorial style, multiple game modes, and a fullscreen view for the active game.
+						A compact website with a warm editorial style, eighteen game modes, and a fullscreen view for the active game.
 					Switch between quick challenges, play in-place, or expand the arcade to fill the screen.
 				</p>
 
@@ -465,7 +668,7 @@
 				<div class="grid">
 					<div>
 						<p class="muted">
-							The arcade includes three mini-games: Neon Tap, Color Match, and Memory Grid. Use the switcher to move between them and the fullscreen button to expand the active one.
+							The arcade now includes eighteen mini-games: Neon Tap, Color Match, Memory Grid, Word Sprint, Pong Rush, Brick Breaker, and twelve bonus challenge games. Use the switcher to move between them and the fullscreen button to expand the active one.
 						</p>
 						<ul class="list">
 							<li>Neon Tap rewards quick reactions.</li>
@@ -493,7 +696,7 @@
 				</div>
 			</section>
 
-			<section class="card panel arcade-shell" id="arcadePanel">
+			<section class="card panel arcade-shell super-loaded" id="arcadePanel">
 				<div class="toolbar">
 					<div>
 						<h2 class="section-title" id="activeTitle">Neon Tap</h2>
@@ -502,13 +705,31 @@
 					<button class="secondary" id="fullscreenBtn" type="button">Fullscreen Game</button>
 				</div>
 
-				<div class="switcher" role="tablist" aria-label="Arcade games">
+				<div class="arcade-tools">
+					<div>
+						<label class="muted" for="gameSearch">Search games</label>
+						<input class="searchbox" id="gameSearch" type="search" placeholder="Search arcade games">
+					</div>
+					<div>
+						<p class="muted" style="margin-bottom:8px;">Pick a layout face</p>
+						<div class="layout-faces" id="layoutFaces">
+							<button class="face active" type="button" data-layout="default">Default<small>Balanced arcade view</small></button>
+							<button class="face" type="button" data-layout="compact">Compact<small>Smaller games on screen</small></button>
+							<button class="face" type="button" data-layout="split">Split<small>Two-up layout for browsing</small></button>
+						</div>
+					</div>
+				</div>
+
+				<div class="switcher" id="arcadeSwitcher" role="tablist" aria-label="Arcade games">
 					<button class="chip active" type="button" data-game="neon">Neon Tap</button>
 					<button class="chip" type="button" data-game="color">Color Match</button>
 					<button class="chip" type="button" data-game="memory">Memory Grid</button>
+					<button class="chip" type="button" data-game="word">Word Sprint</button>
+					<button class="chip" type="button" data-game="pong">Pong Rush</button>
+					<button class="chip" type="button" data-game="breaker">Brick Breaker</button>
 				</div>
 
-				<div class="game-stage">
+				<div class="game-stage" id="arcadeGames">
 					<section class="game active" data-panel="neon">
 						<div class="hud">
 							<span id="neonScore">Score: 0</span>
@@ -574,6 +795,72 @@
 
 						<div class="status" id="memoryStatus">Tap Shuffle Board to start a fresh round.</div>
 					</section>
+
+					<section class="game" data-panel="word">
+						<p class="muted">Type the word shown before the timer runs out. Each correct answer gives you one point and a new word.</p>
+						<div class="hud">
+							<span id="wordScore">Score: 0</span>
+							<span id="wordTime">Time: 15</span>
+							<span id="wordState">Ready to play</span>
+						</div>
+
+						<div class="panel" style="padding:16px; border-radius:18px; background:rgba(31,35,40,0.03); border:1px solid var(--line); display:grid; gap:12px;">
+							<h3 id="wordPrompt">Type: Calm</h3>
+							<input class="searchbox" id="wordInput" type="text" placeholder="Type the word here">
+						</div>
+
+						<div class="controls">
+							<button class="primary" id="startWord" type="button">Start Round</button>
+							<button class="secondary" id="resetWord" type="button">Reset</button>
+						</div>
+
+						<div class="status" id="wordStatus">Tap Start Round to begin.</div>
+					</section>
+
+					<section class="game" data-panel="pong">
+						<p class="muted">Classic Pong, scaled down for quick play. Move your paddle and keep the ball in play as long as you can.</p>
+						<div class="hud">
+							<span id="pongScore">Score: 0</span>
+							<span id="pongLives">Lives: 3</span>
+							<span id="pongState">Ready to play</span>
+						</div>
+
+						<div class="pong-wrap">
+							<canvas class="pong-canvas" id="pongCanvas" width="640" height="400"></canvas>
+							<div class="pong-controls">
+								<button class="secondary" id="pongLeft" type="button">Move Left</button>
+								<button class="secondary" id="pongRight" type="button">Move Right</button>
+							</div>
+						</div>
+
+						<div class="controls">
+							<button class="primary" id="startPong" type="button">Start Round</button>
+							<button class="secondary" id="resetPong" type="button">Reset</button>
+						</div>
+
+						<div class="status" id="pongStatus">Tap Start Round to begin.</div>
+					</section>
+
+					<section class="game" data-panel="breaker">
+						<p class="muted">Break the bricks with a bouncing ball. Keep the paddle under the ball and clear the board.</p>
+						<div class="hud">
+							<span id="breakerScore">Score: 0</span>
+							<span id="breakerBricks">Bricks: 0</span>
+							<span id="breakerState">Ready to play</span>
+						</div>
+
+						<div class="breaker-wrap">
+							<canvas class="breaker-canvas" id="breakerCanvas" width="640" height="400"></canvas>
+							<div class="breaker-bricks" id="breakerBricksGrid"></div>
+						</div>
+
+						<div class="controls">
+							<button class="primary" id="startBreaker" type="button">Start Round</button>
+							<button class="secondary" id="resetBreaker" type="button">Reset</button>
+						</div>
+
+						<div class="status" id="breakerStatus">Tap Start Round to begin.</div>
+					</section>
 				</div>
 			</section>
 		</main>
@@ -586,8 +873,12 @@
 	<script>
 		const arcadePanel = document.getElementById('arcadePanel');
 		const fullScreenButton = document.getElementById('fullscreenBtn');
-		const gameTabs = Array.from(document.querySelectorAll('[data-game]'));
-		const gamePanels = Array.from(document.querySelectorAll('[data-panel]'));
+		const gameSearch = document.getElementById('gameSearch');
+		const arcadeSwitcher = document.getElementById('arcadeSwitcher');
+		const arcadeGames = document.getElementById('arcadeGames');
+		const layoutFaces = Array.from(document.querySelectorAll('[data-layout]'));
+		let gameTabs = Array.from(document.querySelectorAll('[data-game]'));
+		let gamePanels = Array.from(document.querySelectorAll('[data-panel]'));
 		const activeTitle = document.getElementById('activeTitle');
 		const activeDescription = document.getElementById('activeDescription');
 
@@ -617,6 +908,36 @@
 		const startMemory = document.getElementById('startMemory');
 		const resetMemory = document.getElementById('resetMemory');
 
+		const wordScore = document.getElementById('wordScore');
+		const wordTime = document.getElementById('wordTime');
+		const wordState = document.getElementById('wordState');
+		const wordPrompt = document.getElementById('wordPrompt');
+		const wordInput = document.getElementById('wordInput');
+		const wordStatus = document.getElementById('wordStatus');
+		const startWord = document.getElementById('startWord');
+		const resetWord = document.getElementById('resetWord');
+
+		const pongScore = document.getElementById('pongScore');
+		const pongLives = document.getElementById('pongLives');
+		const pongState = document.getElementById('pongState');
+		const pongStatus = document.getElementById('pongStatus');
+		const pongCanvas = document.getElementById('pongCanvas');
+		const pongContext = pongCanvas.getContext('2d');
+		const startPong = document.getElementById('startPong');
+		const resetPong = document.getElementById('resetPong');
+		const pongLeft = document.getElementById('pongLeft');
+		const pongRight = document.getElementById('pongRight');
+
+		const breakerScore = document.getElementById('breakerScore');
+		const breakerBricks = document.getElementById('breakerBricks');
+		const breakerState = document.getElementById('breakerState');
+		const breakerStatus = document.getElementById('breakerStatus');
+		const breakerCanvas = document.getElementById('breakerCanvas');
+		const breakerContext = breakerCanvas.getContext('2d');
+		const breakerBricksGrid = document.getElementById('breakerBricksGrid');
+		const startBreaker = document.getElementById('startBreaker');
+		const resetBreaker = document.getElementById('resetBreaker');
+
 		const colorChoices = [
 			{ name: 'Warm Sand', value: '#d9b38c' },
 			{ name: 'Deep Sea', value: '#184e77' },
@@ -627,8 +948,11 @@
 		];
 
 		const memorySymbols = ['✦', '✿', '☼', '◆', '◈', '▲', '●', '⬟'];
+		const wordList = ['Calm', 'Focus', 'Orbit', 'Spark', 'Quiet', 'Bright', 'Dawn', 'Voyage'];
 
 		let activeGame = 'neon';
+		let arcadeLayout = 'default';
+		let gameFilter = '';
 
 		let neonScoreValue = 0;
 		let neonTimeValue = 20;
@@ -649,25 +973,562 @@
 		let memoryLock = false;
 		let memoryDeck = [];
 
+		let wordScoreValue = 0;
+		let wordTimeValue = 15;
+		let wordRunning = false;
+		let wordCountdown = null;
+		let currentWord = 'Calm';
+		let wordIndex = 0;
+
+		let pongRunning = false;
+		let pongScoreValue = 0;
+		let pongLivesValue = 3;
+		let pongAnimation = null;
+		let pongLastFrame = 0;
+		let pongPaddleX = 280;
+		let pongBallX = 320;
+		let pongBallY = 200;
+		let pongBallVX = 180;
+		let pongBallVY = -180;
+
+		let breakerRunning = false;
+		let breakerScoreValue = 0;
+		let breakerBricksLeft = 0;
+		let breakerAnimation = null;
+		let breakerLastFrame = 0;
+		let breakerPaddleX = 280;
+		let breakerBallX = 320;
+		let breakerBallY = 300;
+		let breakerBallVX = 150;
+		let breakerBallVY = -170;
+		let breakerBricksState = [];
+
 		function shuffle(array) {
 			return array.slice().sort(() => Math.random() - 0.5);
 		}
+
+		const arcadeGameInfo = {
+			neon: { title: 'Neon Tap', description: 'Tap the glowing tile before it moves.' },
+			color: { title: 'Color Match', description: 'Pick the swatch that matches the color name.' },
+			memory: { title: 'Memory Grid', description: 'Flip two cards and find the matching pairs.' },
+			word: { title: 'Word Sprint', description: 'Type each word before the timer runs out.' },
+			pong: { title: 'Pong Rush', description: 'Keep the ball in play with a smaller, faster arcade feel.' },
+			breaker: { title: 'Brick Breaker', description: 'Break the wall of bricks and keep the ball alive.' }
+		};
+
+		const bonusGameConfigs = [
+			{
+				id: 'target-dash',
+				title: 'Target Dash',
+				description: 'A fast 3x3 tap challenge with a bright target.',
+				kind: 'grid',
+				timer: 14,
+				prompt: 'Tap the glowing target.',
+				tiles: ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+			},
+			{
+				id: 'color-snap',
+				title: 'Color Snap',
+				description: 'Pick the color tile that matches the prompt.',
+				kind: 'grid',
+				timer: 14,
+				prompt: 'Tap the color that matches the name.',
+				tiles: ['Ruby', 'Teal', 'Sand', 'Gold', 'Ink', 'Mint', 'Rose', 'Sky', 'Olive'],
+				tileStyles: ['#be123c', '#0f766e', '#d9b38c', '#d97706', '#2f3e46', '#86efac', '#fb7185', '#38bdf8', '#6c8c55']
+			},
+			{
+				id: 'shape-snap',
+				title: 'Shape Snap',
+				description: 'Spot the right shape in a calm, compact grid.',
+				kind: 'grid',
+				timer: 14,
+				prompt: 'Find the matching shape.',
+				tiles: ['◼', '▲', '●', '◆', '✦', '⬟', '⬢', '✿', '☼']
+			},
+			{
+				id: 'word-jolt',
+				title: 'Word Jolt',
+				description: 'Type the word and keep the streak alive.',
+				kind: 'typing',
+				timer: 15,
+				prompt: 'Type the word shown below.',
+				words: ['Arcade', 'Orbit', 'Spark', 'Calm', 'Neon', 'Pulse', 'Glide']
+			},
+			{
+				id: 'rapid-type',
+				title: 'Rapid Type',
+				description: 'Short words, fast fingers, tight timer.',
+				kind: 'typing',
+				timer: 15,
+				prompt: 'Type the word exactly.',
+				words: ['Retro', 'Pixel', 'Flash', 'Drift', 'Focus', 'Signal', 'Vector']
+			},
+			{
+				id: 'key-storm',
+				title: 'Key Storm',
+				description: 'A cleaner typing sprint with a little more pressure.',
+				kind: 'typing',
+				timer: 15,
+				prompt: 'Copy the word before time runs out.',
+				words: ['Runner', 'Glitch', 'Breeze', 'Arrow', 'Lattice', 'Orbit']
+			},
+			{
+				id: 'lucky-roll',
+				title: 'Lucky Roll',
+				description: 'Choose the highest result before the clock does.',
+				kind: 'choice',
+				timer: 18,
+				prompt: 'Pick the highest number.',
+				questions: [
+					{ prompt: 'Which number is highest?', options: ['2', '5', '7', '9'], answer: '9' },
+					{ prompt: 'Which number is highest?', options: ['1', '4', '8', '6'], answer: '8' },
+					{ prompt: 'Which number is highest?', options: ['3', '10', '2', '6'], answer: '10' }
+				]
+			},
+			{
+				id: 'trivia-sprint',
+				title: 'Trivia Sprint',
+				description: 'Simple questions with a quick arcade rhythm.',
+				kind: 'choice',
+				timer: 18,
+				prompt: 'Pick the best answer.',
+				questions: [
+					{ prompt: 'Which one is a fruit?', options: ['Desk', 'Apple', 'Brick', 'Cloud'], answer: 'Apple' },
+					{ prompt: 'Which one is a music tool?', options: ['Hammer', 'Piano', 'Spoon', 'Rope'], answer: 'Piano' },
+					{ prompt: 'Which one is a planet?', options: ['Jupiter', 'Chair', 'Paper', 'Shoe'], answer: 'Jupiter' }
+				]
+			},
+			{
+				id: 'match-maker',
+				title: 'Match Maker',
+				description: 'Pick the answer that belongs with the prompt.',
+				kind: 'choice',
+				timer: 18,
+				prompt: 'Choose the matching word.',
+				questions: [
+					{ prompt: 'Which word matches: Orb?', options: ['Orb', 'Stone', 'Paper', 'Drum'], answer: 'Orb' },
+					{ prompt: 'Which word matches: Wave?', options: ['Wave', 'Brick', 'Rust', 'Leaf'], answer: 'Wave' },
+					{ prompt: 'Which word matches: Glow?', options: ['Glow', 'Mute', 'Dust', 'Bark'], answer: 'Glow' }
+				]
+			},
+			{
+				id: 'simon-flash',
+				title: 'Simon Flash',
+				description: 'Repeat a classic color pattern in order.',
+				kind: 'sequence',
+				timer: 18,
+				prompt: 'Repeat the pattern by clicking the buttons.',
+				buttons: [
+					{ label: 'Cyan', color: '#0ea5e9' },
+					{ label: 'Gold', color: '#d97706' },
+					{ label: 'Teal', color: '#0f766e' },
+					{ label: 'Plum', color: '#7c3aed' }
+				]
+			},
+			{
+				id: 'pattern-pop',
+				title: 'Pattern Pop',
+				description: 'Watch the sequence and tap the tiles back in order.',
+				kind: 'sequence',
+				timer: 18,
+				prompt: 'Tap the buttons in the same order.',
+				buttons: [
+					{ label: 'Star', color: '#f59e0b' },
+					{ label: 'Moon', color: '#184e77' },
+					{ label: 'Sun', color: '#d97706' },
+					{ label: 'Leaf', color: '#6c8c55' }
+				]
+			},
+			{
+				id: 'pulse-trail',
+				title: 'Pulse Trail',
+				description: 'A faster memory trail with a short color chain.',
+				kind: 'sequence',
+				timer: 18,
+				prompt: 'Repeat the trail exactly.',
+				buttons: [
+					{ label: 'A', color: '#184e77' },
+					{ label: 'B', color: '#d97706' },
+					{ label: 'C', color: '#0f766e' },
+					{ label: 'D', color: '#9f1239' }
+				]
+			}
+		];
+
+		const bonusGameStates = new Map();
+
+		function refreshArcadeCollections() {
+			gameTabs = Array.from(document.querySelectorAll('[data-game]'));
+			gamePanels = Array.from(document.querySelectorAll('[data-panel]'));
+		}
+
+		function clearGameTimer(state) {
+			if (state.timerId) {
+				clearInterval(state.timerId);
+				state.timerId = null;
+			}
+		}
+
+		function updateBonusHud(state) {
+			state.elements.score.textContent = `Score: ${state.score}`;
+			state.elements.time.textContent = `Time: ${state.timeLeft}`;
+		}
+
+		function buildBonusPanel(config) {
+			const section = document.createElement('section');
+			section.className = 'game';
+			section.dataset.panel = config.id;
+			section.dataset.kind = config.kind;
+
+			section.innerHTML = `
+				<p class="muted">${config.description}</p>
+				<div class="hud">
+					<span data-role="score">Score: 0</span>
+					<span data-role="time">Time: ${config.timer}</span>
+					<span data-role="state">Ready to play</span>
+				</div>
+				<div class="bonus-panel">
+					<div class="bonus-prompt">
+						<h3 data-role="prompt">${config.prompt}</h3>
+						${config.kind === 'typing' ? '<input class="searchbox" data-role="input" type="text" placeholder="Type here">' : ''}
+						${config.kind === 'sequence' ? '<p class="muted" data-role="sequenceHint">Watch the pattern, then tap the buttons in order.</p>' : ''}
+					</div>
+					<div class="bonus-board" data-role="board"></div>
+				</div>
+				<div class="controls">
+					<button class="primary" type="button" data-role="start">Start Round</button>
+					<button class="secondary" type="button" data-role="reset">Reset</button>
+				</div>
+				<div class="status" data-role="status">Tap Start Round to begin.</div>
+			`;
+
+			return section;
+		}
+
+		function renderBonusGames() {
+			bonusGameConfigs.forEach(config => {
+				arcadeGameInfo[config.id] = { title: config.title, description: config.description };
+
+				const tab = document.createElement('button');
+				tab.className = 'chip';
+				tab.type = 'button';
+				tab.dataset.game = config.id;
+				tab.textContent = config.title;
+				arcadeSwitcher.appendChild(tab);
+
+				const panel = buildBonusPanel(config);
+				arcadeGames.appendChild(panel);
+
+				bonusGameStates.set(config.id, {
+					config,
+					panel,
+					elements: {
+						score: panel.querySelector('[data-role="score"]'),
+						time: panel.querySelector('[data-role="time"]'),
+						state: panel.querySelector('[data-role="state"]'),
+						prompt: panel.querySelector('[data-role="prompt"]'),
+						board: panel.querySelector('[data-role="board"]'),
+						input: panel.querySelector('[data-role="input"]'),
+						status: panel.querySelector('[data-role="status"]'),
+						start: panel.querySelector('[data-role="start"]'),
+						reset: panel.querySelector('[data-role="reset"]'),
+						sequenceHint: panel.querySelector('[data-role="sequenceHint"]')
+					},
+					score: 0,
+					timeLeft: config.timer,
+					running: false,
+					timerId: null,
+					roundData: null,
+					sequenceIndex: 0
+				});
+			});
+
+			refreshArcadeCollections();
+ 		}
 
 		function updateActiveGame(gameName) {
 			activeGame = gameName;
 			gameTabs.forEach(tab => tab.classList.toggle('active', tab.dataset.game === gameName));
 			gamePanels.forEach(panel => panel.classList.toggle('active', panel.dataset.panel === gameName));
 
-			if (gameName === 'neon') {
-				activeTitle.textContent = 'Neon Tap';
-				activeDescription.textContent = 'Tap the glowing tile before it moves.';
-			} else if (gameName === 'color') {
-				activeTitle.textContent = 'Color Match';
-				activeDescription.textContent = 'Pick the swatch that matches the color name.';
-			} else {
-				activeTitle.textContent = 'Memory Grid';
-				activeDescription.textContent = 'Flip two cards and find the matching pairs.';
+			const gameInfo = arcadeGameInfo[gameName];
+			if (gameInfo) {
+				activeTitle.textContent = gameInfo.title;
+				activeDescription.textContent = gameInfo.description;
 			}
+		}
+
+		function applyLayout(layoutName) {
+			arcadeLayout = layoutName;
+			arcadePanel.classList.remove('compact', 'split', 'focus');
+			if (layoutName !== 'default') {
+				arcadePanel.classList.add(layoutName);
+			}
+			layoutFaces.forEach(face => face.classList.toggle('active', face.dataset.layout === layoutName));
+		}
+
+		function applyFilter() {
+			const query = gameFilter.trim().toLowerCase();
+			gameTabs.forEach(tab => {
+				const matches = tab.textContent.toLowerCase().includes(query) || query === '';
+				tab.hidden = !matches;
+			});
+		}
+
+		function clamp(value, min, max) {
+			return Math.max(min, Math.min(max, value));
+		}
+
+		function drawPong() {
+			const width = pongCanvas.width;
+			const height = pongCanvas.height;
+			pongContext.clearRect(0, 0, width, height);
+			pongContext.fillStyle = '#fdf8ef';
+			pongContext.fillRect(0, 0, width, height);
+
+			pongContext.strokeStyle = 'rgba(24, 78, 119, 0.14)';
+			pongContext.setLineDash([10, 10]);
+			pongContext.beginPath();
+			pongContext.moveTo(width / 2, 0);
+			pongContext.lineTo(width / 2, height);
+			pongContext.stroke();
+			pongContext.setLineDash([]);
+
+			pongContext.fillStyle = '#184e77';
+			pongContext.fillRect(pongPaddleX, height - 28, 120, 12);
+			pongContext.fillStyle = '#d97706';
+			pongContext.fillRect(pongBallX - 8, pongBallY - 8, 16, 16);
+
+			pongContext.fillStyle = '#3a7ca5';
+			pongContext.fillRect(pongPaddleX, 16, 120, 12);
+		}
+
+		function resetPongState() {
+			pongRunning = false;
+			pongScoreValue = 0;
+			pongLivesValue = 3;
+			pongLastFrame = 0;
+			cancelAnimationFrame(pongAnimation);
+			pongAnimation = null;
+			pongPaddleX = 260;
+			pongBallX = 320;
+			pongBallY = 220;
+			pongBallVX = 180;
+			pongBallVY = -180;
+			pongScore.textContent = 'Score: 0';
+			pongLives.textContent = 'Lives: 3';
+			pongState.textContent = 'Ready to play';
+			pongStatus.textContent = 'Tap Start Round to begin.';
+			startPong.textContent = 'Start Round';
+			drawPong();
+		}
+
+		function movePongPaddle(delta) {
+			pongPaddleX = clamp(pongPaddleX + delta, 0, pongCanvas.width - 120);
+			drawPong();
+		}
+
+		function updatePong(timestamp) {
+			if (!pongRunning) {
+				return;
+			}
+
+			const deltaSeconds = Math.min((timestamp - pongLastFrame) / 1000, 0.03) || 0.016;
+			pongLastFrame = timestamp;
+			pongBallX += pongBallVX * deltaSeconds;
+			pongBallY += pongBallVY * deltaSeconds;
+
+			if (pongBallX <= 8 || pongBallX >= pongCanvas.width - 8) {
+				pongBallVX *= -1;
+			}
+
+			if (pongBallY <= 30 && pongBallX >= pongPaddleX && pongBallX <= pongPaddleX + 120) {
+				pongBallVY = Math.abs(pongBallVY);
+				pongScoreValue += 1;
+				pongScore.textContent = `Score: ${pongScoreValue}`;
+				pongState.textContent = 'Nice return.';
+			}
+
+			if (pongBallY >= pongCanvas.height - 40 && pongBallX >= pongPaddleX && pongBallX <= pongPaddleX + 120) {
+				pongBallVY = -Math.abs(pongBallVY);
+				pongScoreValue += 1;
+				pongScore.textContent = `Score: ${pongScoreValue}`;
+				pongState.textContent = 'Nice return.';
+			}
+
+			if (pongBallY > pongCanvas.height + 20) {
+				pongLivesValue -= 1;
+				pongLives.textContent = `Lives: ${pongLivesValue}`;
+				pongBallX = 320;
+				pongBallY = 220;
+				pongBallVX = 180 * (Math.random() > 0.5 ? 1 : -1);
+				pongBallVY = -180;
+				pongState.textContent = 'Missed one.';
+
+				if (pongLivesValue <= 0) {
+					pongRunning = false;
+					cancelAnimationFrame(pongAnimation);
+					pongStatus.textContent = `Game over. Final score: ${pongScoreValue}.`;
+					pongState.textContent = `Game over. Final score: ${pongScoreValue}.`;
+					startPong.textContent = 'Play Again';
+					drawPong();
+					return;
+				}
+			}
+
+			pongBallY = clamp(pongBallY, 8, pongCanvas.height + 20);
+			drawPong();
+			pongAnimation = requestAnimationFrame(updatePong);
+		}
+
+		function startPongGame() {
+			resetPongState();
+			pongRunning = true;
+			pongState.textContent = 'Go!';
+			pongStatus.textContent = 'Move the paddle with the buttons or arrow keys.';
+			startPong.textContent = 'Restart Round';
+			pongAnimation = requestAnimationFrame(updatePong);
+		}
+
+		function buildBreakerBoard() {
+			breakerBricksState = [];
+			breakerBricksGrid.innerHTML = '';
+
+			for (let index = 0; index < 18; index += 1) {
+				const brick = document.createElement('div');
+				brick.className = 'brick';
+				brick.dataset.brick = String(index);
+				breakerBricksGrid.appendChild(brick);
+				breakerBricksState.push({ x: (index % 6) * 100 + 24, y: Math.floor(index / 6) * 26 + 24, alive: true, element: brick });
+			}
+
+			breakerBricksLeft = breakerBricksState.length;
+			breakerBricks.textContent = `Bricks: ${breakerBricksLeft}`;
+		}
+
+		function drawBreaker() {
+			const width = breakerCanvas.width;
+			const height = breakerCanvas.height;
+			breakerContext.clearRect(0, 0, width, height);
+			breakerContext.fillStyle = '#fdf8ef';
+			breakerContext.fillRect(0, 0, width, height);
+
+			breakerContext.fillStyle = '#184e77';
+			breakerContext.fillRect(breakerPaddleX, height - 28, 120, 12);
+			breakerContext.fillStyle = '#d97706';
+			breakerContext.beginPath();
+			breakerContext.arc(breakerBallX, breakerBallY, 8, 0, Math.PI * 2);
+			breakerContext.fill();
+
+			breakerContext.fillStyle = 'rgba(24, 78, 119, 0.16)';
+			breakerBricksState.forEach(brick => {
+				if (!brick.alive) {
+					return;
+				}
+				breakerContext.fillRect(brick.x, brick.y, 84, 18);
+			});
+		}
+
+		function resetBreakerState() {
+			breakerRunning = false;
+			breakerScoreValue = 0;
+			breakerBricksLeft = 0;
+			breakerLastFrame = 0;
+			cancelAnimationFrame(breakerAnimation);
+			breakerAnimation = null;
+			breakerPaddleX = 260;
+			breakerBallX = 320;
+			breakerBallY = 300;
+			breakerBallVX = 150;
+			breakerBallVY = -170;
+			breakerScore.textContent = 'Score: 0';
+			breakerBricks.textContent = 'Bricks: 0';
+			breakerState.textContent = 'Ready to play';
+			breakerStatus.textContent = 'Tap Start Round to begin.';
+			startBreaker.textContent = 'Start Round';
+			buildBreakerBoard();
+			drawBreaker();
+		}
+
+		function moveBreakerPaddle(delta) {
+			breakerPaddleX = clamp(breakerPaddleX + delta, 0, breakerCanvas.width - 120);
+			drawBreaker();
+		}
+
+		function updateBreaker(timestamp) {
+			if (!breakerRunning) {
+				return;
+			}
+
+			const deltaSeconds = Math.min((timestamp - breakerLastFrame) / 1000, 0.03) || 0.016;
+			breakerLastFrame = timestamp;
+			breakerBallX += breakerBallVX * deltaSeconds;
+			breakerBallY += breakerBallVY * deltaSeconds;
+
+			if (breakerBallX <= 8 || breakerBallX >= breakerCanvas.width - 8) {
+				breakerBallVX *= -1;
+			}
+
+			if (breakerBallY <= 16) {
+				breakerBallVY *= -1;
+			}
+
+			if (breakerBallY >= breakerCanvas.height - 40 && breakerBallX >= breakerPaddleX && breakerBallX <= breakerPaddleX + 120) {
+				breakerBallVY = -Math.abs(breakerBallVY);
+				const offset = (breakerBallX - (breakerPaddleX + 60)) / 60;
+				breakerBallVX += offset * 45;
+				breakerState.textContent = 'Good save.';
+			}
+
+			if (breakerBallY > breakerCanvas.height + 20) {
+				breakerRunning = false;
+				cancelAnimationFrame(breakerAnimation);
+				breakerState.textContent = `Game over. Final score: ${breakerScoreValue}.`;
+				breakerStatus.textContent = `Game over. Final score: ${breakerScoreValue}.`;
+				startBreaker.textContent = 'Play Again';
+				drawBreaker();
+				return;
+			}
+
+			breakerBricksState.forEach(brick => {
+				if (!brick.alive) {
+					return;
+				}
+
+				const hitX = breakerBallX >= brick.x && breakerBallX <= brick.x + 84;
+				const hitY = breakerBallY >= brick.y && breakerBallY <= brick.y + 18;
+				if (hitX && hitY) {
+					brick.alive = false;
+					brick.element.classList.add('hit');
+					breakerBallVY *= -1;
+					breakerScoreValue += 1;
+					breakerScore.textContent = `Score: ${breakerScoreValue}`;
+					breakerBricksLeft -= 1;
+					breakerBricks.textContent = `Bricks: ${breakerBricksLeft}`;
+				}
+			});
+
+			if (breakerBricksLeft <= 0) {
+				breakerRunning = false;
+				cancelAnimationFrame(breakerAnimation);
+				breakerState.textContent = `Clear! Final score: ${breakerScoreValue}.`;
+				breakerStatus.textContent = `Clear! Final score: ${breakerScoreValue}.`;
+				startBreaker.textContent = 'Play Again';
+				drawBreaker();
+				return;
+			}
+
+			drawBreaker();
+			breakerAnimation = requestAnimationFrame(updateBreaker);
+		}
+
+		function startBreakerGame() {
+			resetBreakerState();
+			breakerRunning = true;
+			breakerState.textContent = 'Go!';
+			breakerStatus.textContent = 'Clear the bricks.';
+			startBreaker.textContent = 'Restart Round';
+			breakerAnimation = requestAnimationFrame(updateBreaker);
 		}
 
 		function setRandomTile() {
@@ -892,6 +1753,345 @@
 			startMemory.textContent = 'Shuffle Again';
 		}
 
+		function resetWordState() {
+			wordScoreValue = 0;
+			wordTimeValue = 15;
+			wordRunning = false;
+			clearInterval(wordCountdown);
+			wordCountdown = null;
+			wordScore.textContent = 'Score: 0';
+			wordTime.textContent = 'Time: 15';
+			wordState.textContent = 'Ready to play';
+			wordStatus.textContent = 'Tap Start Round to begin.';
+			wordPrompt.textContent = 'Type: Calm';
+			wordInput.value = '';
+			startWord.textContent = 'Start Round';
+		}
+
+		function nextWord() {
+			currentWord = wordList[wordIndex % wordList.length];
+			wordIndex += 1;
+			wordPrompt.textContent = `Type: ${currentWord}`;
+			wordInput.value = '';
+			wordInput.focus();
+		}
+
+		function startWordGame() {
+			resetWordState();
+			wordRunning = true;
+			wordState.textContent = 'Go!';
+			wordStatus.textContent = 'Type the word and press Enter.';
+			startWord.textContent = 'Restart Round';
+			nextWord();
+
+			wordCountdown = setInterval(() => {
+				if (!wordRunning) {
+					return;
+				}
+
+				wordTimeValue -= 1;
+				wordTime.textContent = `Time: ${wordTimeValue}`;
+
+				if (wordTimeValue <= 0) {
+					wordRunning = false;
+					clearInterval(wordCountdown);
+					wordState.textContent = `Time's up. Final score: ${wordScoreValue}.`;
+					wordStatus.textContent = `Time's up. Final score: ${wordScoreValue}.`;
+					startWord.textContent = 'Play Again';
+				}
+			}, 1000);
+		}
+
+		function resetBonusGame(state) {
+			clearGameTimer(state);
+			state.running = false;
+			state.score = 0;
+			state.timeLeft = state.config.timer;
+			state.roundData = null;
+			state.sequenceIndex = 0;
+			state.elements.score.textContent = 'Score: 0';
+			state.elements.time.textContent = `Time: ${state.config.timer}`;
+			state.elements.state.textContent = 'Ready to play';
+			state.elements.status.textContent = 'Tap Start Round to begin.';
+			state.elements.prompt.textContent = state.config.prompt;
+			state.elements.start.textContent = 'Start Round';
+			state.elements.board.className = 'bonus-board';
+			state.elements.board.innerHTML = '';
+			if (state.elements.input) {
+				state.elements.input.value = '';
+			}
+		}
+
+		function finishBonusGame(state, message) {
+			state.running = false;
+			clearGameTimer(state);
+			state.elements.state.textContent = message;
+			state.elements.status.textContent = message;
+			state.elements.start.textContent = 'Play Again';
+		}
+
+		function startBonusTimer(state) {
+			clearGameTimer(state);
+			state.timerId = setInterval(() => {
+				if (!state.running) {
+					return;
+				}
+
+				state.timeLeft -= 1;
+				state.elements.time.textContent = `Time: ${state.timeLeft}`;
+
+				if (state.timeLeft <= 0) {
+					finishBonusGame(state, `Time's up. Final score: ${state.score}.`);
+				}
+			}, 1000);
+		}
+
+		function buildBonusGridRound(state) {
+			const tiles = shuffle(state.config.tiles.map((label, index) => ({
+				label,
+				color: state.config.tileStyles ? state.config.tileStyles[index] : ''
+			})));
+			const targetIndex = Math.floor(Math.random() * tiles.length);
+			state.roundData = { tiles, targetIndex };
+			state.elements.board.className = 'bonus-grid';
+			state.elements.board.innerHTML = '';
+
+			tiles.forEach((tile, index) => {
+				const button = document.createElement('button');
+				button.type = 'button';
+				button.className = 'bonus-tile';
+				button.textContent = tile.label;
+				if (tile.color) {
+					button.style.background = tile.color;
+					button.style.color = 'white';
+				}
+				if (index === targetIndex) {
+					button.classList.add('active');
+				}
+
+				button.addEventListener('click', () => {
+					if (!state.running) {
+						return;
+					}
+
+					if (index === state.roundData.targetIndex) {
+						state.score += 1;
+						state.elements.state.textContent = 'Nice hit.';
+						state.elements.status.textContent = 'New target locked in.';
+						updateBonusHud(state);
+						buildBonusGridRound(state);
+					} else {
+						state.elements.state.textContent = 'Try again.';
+						state.elements.status.textContent = 'That tile was not the target.';
+					}
+				});
+
+				state.elements.board.appendChild(button);
+			});
+		}
+
+		function buildBonusChoiceRound(state) {
+			const question = shuffle(state.config.questions)[0];
+			state.roundData = { question };
+			state.elements.prompt.textContent = question.prompt;
+			state.elements.board.className = 'bonus-grid';
+			state.elements.board.innerHTML = '';
+
+			question.options.forEach((option, index) => {
+				const button = document.createElement('button');
+				button.type = 'button';
+				button.className = 'bonus-choice';
+				button.textContent = option;
+				button.style.background = ['#184e77', '#d97706', '#0f766e', '#7c3aed'][index % 4];
+
+				button.addEventListener('click', () => {
+					if (!state.running) {
+						return;
+					}
+
+					if (option === question.answer) {
+						state.score += 1;
+						state.elements.state.textContent = 'Correct.';
+						state.elements.status.textContent = 'New question loaded.';
+						updateBonusHud(state);
+						buildBonusChoiceRound(state);
+					} else {
+						state.elements.state.textContent = 'Try again.';
+						state.elements.status.textContent = 'That was not the right answer.';
+					}
+				});
+
+				state.elements.board.appendChild(button);
+			});
+		}
+
+		function buildBonusTypingRound(state) {
+			const word = shuffle(state.config.words)[0];
+			state.roundData = { word };
+			state.elements.prompt.textContent = `Type: ${word}`;
+			if (state.elements.input) {
+				state.elements.input.value = '';
+				state.elements.input.focus();
+			}
+			state.elements.board.className = 'bonus-board';
+			state.elements.board.innerHTML = '';
+		}
+
+		function submitBonusTypingAnswer(state) {
+			if (!state.running || !state.elements.input) {
+				return;
+			}
+
+			if (state.elements.input.value.trim().toLowerCase() === state.roundData.word.toLowerCase()) {
+				state.score += 1;
+				state.elements.state.textContent = 'Correct.';
+				state.elements.status.textContent = 'Next word loaded.';
+				updateBonusHud(state);
+				buildBonusTypingRound(state);
+			} else {
+				state.elements.state.textContent = 'Try again.';
+				state.elements.status.textContent = 'That word did not match.';
+				state.elements.input.select();
+			}
+		}
+
+		function buildBonusSequenceRound(state) {
+			const buttons = state.config.buttons;
+			const length = Math.min(3 + Math.floor(state.score / 2), 5);
+			const sequence = Array.from({ length }, () => buttons[Math.floor(Math.random() * buttons.length)].label);
+			state.roundData = { sequence };
+			state.sequenceIndex = 0;
+			state.elements.prompt.textContent = `Repeat: ${sequence.join(' • ')}`;
+			if (state.elements.sequenceHint) {
+				state.elements.sequenceHint.textContent = 'Tap the buttons in the same order.';
+			}
+			state.elements.board.className = 'bonus-sequence-row';
+			state.elements.board.innerHTML = '';
+
+			buttons.forEach(buttonInfo => {
+				const button = document.createElement('button');
+				button.type = 'button';
+				button.className = 'bonus-seq';
+				button.textContent = buttonInfo.label;
+				button.style.background = buttonInfo.color;
+				button.style.color = 'white';
+
+				button.addEventListener('click', () => {
+					if (!state.running) {
+						return;
+					}
+
+					const expected = state.roundData.sequence[state.sequenceIndex];
+					if (buttonInfo.label === expected) {
+						state.sequenceIndex += 1;
+						if (state.sequenceIndex >= state.roundData.sequence.length) {
+							state.score += 1;
+							state.elements.state.textContent = 'Pattern cleared.';
+							state.elements.status.textContent = 'New sequence loaded.';
+							updateBonusHud(state);
+							setTimeout(() => {
+								if (state.running) {
+									buildBonusSequenceRound(state);
+								}
+							}, 220);
+						} else {
+							state.elements.state.textContent = 'Good.';
+							state.elements.status.textContent = 'Keep the pattern going.';
+						}
+					} else {
+						state.sequenceIndex = 0;
+						state.elements.state.textContent = 'Pattern reset.';
+						state.elements.status.textContent = 'Start the pattern again from the first button.';
+					}
+				});
+
+				state.elements.board.appendChild(button);
+			});
+		}
+
+		function wireBonusGame(state) {
+			state.elements.start.addEventListener('click', () => startBonusGame(state));
+			state.elements.reset.addEventListener('click', () => resetBonusGame(state));
+
+			if (state.config.kind === 'typing' && state.elements.input) {
+				state.elements.input.addEventListener('keydown', event => {
+					if (event.key === 'Enter') {
+						submitBonusTypingAnswer(state);
+					}
+				});
+			}
+		}
+
+		function startBonusGame(state) {
+			resetBonusGame(state);
+			state.running = true;
+			state.elements.state.textContent = 'Go!';
+			state.elements.status.textContent = state.config.kind === 'typing'
+				? 'Type the word and press Enter.'
+				: 'Keep going.';
+			state.elements.start.textContent = 'Restart Round';
+			state.timeLeft = state.config.timer;
+			updateBonusHud(state);
+
+			if (state.config.kind === 'grid') {
+				buildBonusGridRound(state);
+			} else if (state.config.kind === 'typing') {
+				buildBonusTypingRound(state);
+			} else if (state.config.kind === 'choice') {
+				buildBonusChoiceRound(state);
+			} else if (state.config.kind === 'sequence') {
+				buildBonusSequenceRound(state);
+			}
+
+			startBonusTimer(state);
+		}
+
+		function renderBonusGames() {
+			bonusGameConfigs.forEach(config => {
+				arcadeGameInfo[config.id] = { title: config.title, description: config.description };
+
+				const tab = document.createElement('button');
+				tab.className = 'chip';
+				tab.type = 'button';
+				tab.dataset.game = config.id;
+				tab.textContent = config.title;
+				arcadeSwitcher.appendChild(tab);
+
+				const panel = buildBonusPanel(config);
+				arcadeGames.appendChild(panel);
+
+				const state = {
+					config,
+					panel,
+					elements: {
+						score: panel.querySelector('[data-role="score"]'),
+						time: panel.querySelector('[data-role="time"]'),
+						state: panel.querySelector('[data-role="state"]'),
+						prompt: panel.querySelector('[data-role="prompt"]'),
+						board: panel.querySelector('[data-role="board"]'),
+						input: panel.querySelector('[data-role="input"]'),
+						status: panel.querySelector('[data-role="status"]'),
+						start: panel.querySelector('[data-role="start"]'),
+						reset: panel.querySelector('[data-role="reset"]'),
+						sequenceHint: panel.querySelector('[data-role="sequenceHint"]')
+					},
+					score: 0,
+					timeLeft: config.timer,
+					running: false,
+					timerId: null,
+					roundData: null,
+					sequenceIndex: 0
+				};
+
+				bonusGameStates.set(config.id, state);
+				wireBonusGame(state);
+			});
+
+			refreshArcadeCollections();
+		}
+
+		renderBonusGames();
+
 		gameTabs.forEach(tab => {
 			tab.addEventListener('click', () => {
 				const nextGame = tab.dataset.game;
@@ -901,6 +2101,39 @@
 					tapBoard.style.pointerEvents = 'none';
 				}
 			});
+		});
+
+		function handlePaddleKey(event) {
+			if (event.key === 'ArrowLeft') {
+				if (activeGame === 'pong') {
+					movePongPaddle(-30);
+				}
+				if (activeGame === 'breaker') {
+					moveBreakerPaddle(-30);
+				}
+			}
+
+			if (event.key === 'ArrowRight') {
+				if (activeGame === 'pong') {
+					movePongPaddle(30);
+				}
+				if (activeGame === 'breaker') {
+					moveBreakerPaddle(30);
+				}
+			}
+		}
+
+		document.addEventListener('keydown', handlePaddleKey);
+
+		layoutFaces.forEach(face => {
+			face.addEventListener('click', () => {
+				applyLayout(face.dataset.layout);
+			});
+		});
+
+		gameSearch.addEventListener('input', () => {
+			gameFilter = gameSearch.value;
+			applyFilter();
 		});
 
 		tapTiles.forEach(tile => {
@@ -925,6 +2158,40 @@
 		startMemory.addEventListener('click', startMemoryGame);
 		resetMemory.addEventListener('click', resetMemoryState);
 
+		startWord.addEventListener('click', startWordGame);
+		resetWord.addEventListener('click', resetWordState);
+		wordInput.addEventListener('keydown', event => {
+			if (event.key !== 'Enter' || !wordRunning) {
+				return;
+			}
+
+			if (wordInput.value.trim().toLowerCase() === currentWord.toLowerCase()) {
+				wordScoreValue += 1;
+				wordScore.textContent = `Score: ${wordScoreValue}`;
+				wordState.textContent = 'Correct.';
+				wordStatus.textContent = 'Nice. Next word.';
+				nextWord();
+			} else {
+				wordState.textContent = 'Try again.';
+				wordStatus.textContent = 'That word did not match.';
+				wordInput.select();
+			}
+		});
+
+		pongLeft.addEventListener('click', () => {
+			movePongPaddle(-30);
+		});
+
+		pongRight.addEventListener('click', () => {
+			movePongPaddle(30);
+		});
+
+		startPong.addEventListener('click', startPongGame);
+		resetPong.addEventListener('click', resetPongState);
+
+		startBreaker.addEventListener('click', startBreakerGame);
+		resetBreaker.addEventListener('click', resetBreakerState);
+
 		fullScreenButton.addEventListener('click', async () => {
 			if (document.fullscreenElement) {
 				await document.exitFullscreen();
@@ -939,9 +2206,14 @@
 		});
 
 		updateActiveGame('neon');
+		applyLayout('default');
+		applyFilter();
 		resetNeonState();
 		resetColorState();
 		resetMemoryState();
+		resetWordState();
+		resetPongState();
+		resetBreakerState();
 	</script>
 </body>
 </html>
